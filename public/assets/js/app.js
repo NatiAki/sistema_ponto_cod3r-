@@ -7,3 +7,28 @@
 }
 })()
 
+
+function activateClock(){
+    const activeClock = document.querySelector('[active-clock]')
+    if(!activeClock) return
+
+    function addOneSecond(hours, minutes, seconds){
+        const d= new Date()
+        d.setHours(parseInt(hours))
+        d.setMinutes(parseInt(minutes))
+        d.setSeconds(parseInt(seconds) + 1)
+        const h = `${d.getHours()}`.padStart(2,0) //padStart faz com que sempre retorne a mesma quantidade de digitos, no caso 2 digitos e sempre completar com 0 a esquerda
+        const m = `${d.getMinutes()}`.padStart(2,0)
+        const s = `${d.getSeconds()}`.padStart(2,0)
+        return `${h}:${m}:${s}`
+    }
+    
+    setInterval(function(){
+        const parts = activeClock.innerHTML.split(':')
+        activeClock.innerHTML = addOneSecond(...parts)
+    },1000) //executa uma funcao de tanto em tanto tempo 
+ 
+}
+
+activateClock()
+
